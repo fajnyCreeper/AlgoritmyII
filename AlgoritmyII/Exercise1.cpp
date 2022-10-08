@@ -11,13 +11,13 @@ Exercise1::Exercise1(unsigned int elementsLength, bool hasArrayRandomValues)
 
 	if (hasArrayRandomValues)
 	{
-		Components::CreateArrayRandomValues(this->elements, this->elementsLength);
+		Components<int>::CreateArrayRandomValues(this->elements, this->elementsLength);
 	}
 	else {
-		Components::CreateArraySequenceValues(this->elements, this->elementsLength);
+		Components<int>::CreateArraySequenceValues(this->elements, this->elementsLength);
 	}
 
-	Components::DuplicateArray(this->elements, this->elementsLength, this->elementsBackup);
+	Components<int>::DuplicateArray(this->elements, this->elementsLength, this->elementsBackup);
 }
 
 Exercise1::~Exercise1()
@@ -39,7 +39,7 @@ void Exercise1::Example1()
 
 void Exercise1::Example2()
 {
-	if (this->PresortElementUniqueness(this->elements, this->elementsLength, &Components::Compare))
+	if (this->PresortElementUniqueness(this->elements, this->elementsLength, &Components<int>::Compare))
 	{
 		std::cout << "Uniqueness is true" << std::endl;
 	}
@@ -56,7 +56,7 @@ void Exercise1::Example3()
 
 void Exercise1::Example4()
 {
-	int mode = this->PresortMode(elements, elementsLength, &Components::Compare);
+	int mode = this->PresortMode(elements, elementsLength, &Components<int>::Compare);
 	std::cout << "The mode is " << mode << std::endl;
 }
 
