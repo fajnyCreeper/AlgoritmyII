@@ -1,47 +1,68 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
-#include "Robot.h"
+#include "TransitiveClosure.h"
 
 using namespace std;
 
 int main(void)
 {
-	vector<vector<vector<int>>> coinMatrixes = {
+	//Vector of matrices
+	vector<vector<vector<bool>>> matrices = {
 		{
-			{ 0, 0, 1 },
-			{ 0, 0, 1 },
-			{ 1, 1, 0 }
+			{0, 1, 0},
+			{0, 0, 1},
+			{1, 0, 0}
 		},
 		{
-			{ 0, 0, 1, 0 },
-			{ 0, 0, 1, 0 },
-			{ 1, 1, 0, 1 },
-			{ 1, 1, 1, 1}
+			{0, 1, 0, 0},
+			{0, 0, 0, 1},
+			{0, 0, 0, 0},
+			{1, 0, 1, 0}
 		},
 		{
-			{ 1, 0, 0, 0, 0 },
-			{ 0, 1, 0, 0, 0 },
-			{ 0, 0, 1, 0, 0 },
-			{ 0, 0, 0, 1, 0 },
-			{ 0, 0, 0, 0, 1 }
+			{0, 0, 1, 0, 0},
+			{0, 1, 0, 0, 0},
+			{0, 0, 0, 0, 1},
+			{1, 0, 0, 0, 0},
+			{1, 1, 1, 1, 1}
+		},
+		{
+			{0, 0, 1, 0, 0, 0},
+			{0, 0, 0, 1, 0, 0},
+			{0, 0, 0, 0, 1, 0},
+			{0, 0, 0, 0, 0, 1},
+			{1, 0, 0, 0, 0, 0},
+			{0, 1, 0, 0, 0, 0}
+		},
+		{
+			{0, 0, 0, 1, 0, 0, 0},
+			{0, 0, 0, 1, 0, 0, 0},
+			{0, 0, 0, 1, 0, 0, 0},
+			{1, 1, 1, 1, 1, 1, 1},
+			{0, 0, 0, 1, 0, 0, 0},
+			{0, 0, 0, 1, 0, 0, 0},
+			{0, 0, 0, 1, 0, 0, 0}
 		}
 	};
 
-	vector<Robot> robots;
+	
+	vector<vector<vector<bool>>> calculatedMatrices;	//Create vector for calculated matrices and fill it
 
-	int x, y;
-	for (int i = 0; i < coinMatrixes.size(); i++)
+	for (int i = 0; i < matrices.size(); i++)
+		calculatedMatrices.push_back(TransitiveClosure::GetByWarshall(matrices[i]));
+
+	for (int i = 0; i < matrices.size(); i++)			//Traverse vector of matrices
 	{
-		x = coinMatrixes[i][0].size();
-		y = coinMatrixes[i].size();
-		robots.push_back(Robot(x, y));
-
-		cout << "Robot no. " << i + 1 << endl;
-		cout << "Matrix size: " << x << " columns, " << y << " rows" << endl;
-
-		robots[i].SolveCoinCollectionProblem(coinMatrixes[i]);
-		robots[i].PrintBoard();
+		cout << "Matrix no. " << i + 1 << endl;
+		for (int j = 0; j < matrices[i].size(); j++)	//Traverse rows of single matrix
+		{
+			for (auto cell : matrices[i][j])			//Traverse cells of single rows and print values
+				cout << cell << " ";
+			cout << " |  ";
+			for (auto cell : calculatedMatrices[i][j])
+				cout << cell << " ";
+			cout << endl;
+		}
 		cout << endl;
 	}
 

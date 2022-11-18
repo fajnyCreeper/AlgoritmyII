@@ -20,10 +20,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Robot.cpp" />
+    <ClCompile Include="TransitiveClosure.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Robot.h" />
+    <ClInclude Include="TransitiveClosure.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
